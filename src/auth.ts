@@ -1,20 +1,28 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
+const PORTAL_DEMO_EMAIL = "admin@helpstudyabroad.in";
+const PORTAL_DEMO_PASSWORD = "StudyAbroad@123";
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
   providers: [
     Credentials({
       name: "DummyJSON",
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Admin email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const username = credentials?.username;
+        const email = credentials?.email;
         const password = credentials?.password;
 
-        if (typeof username !== "string" || typeof password !== "string") {
+        if (
+          typeof email !== "string" ||
+          typeof password !== "string" ||
+          email.trim().toLowerCase() !== PORTAL_DEMO_EMAIL ||
+          password !== PORTAL_DEMO_PASSWORD
+        ) {
           return null;
         }
 
@@ -22,7 +30,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const response = await fetch("https://dummyjson.com/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password, expiresInMins: 60 }),
+            // The portal alias is checked above; DummyJSON requires its own seeded username/password.
+            body: JSON.stringify({ username: "emilys", password: "emilyspass", expiresInMins: 60 }),
             cache: "no-store",
           });
 
@@ -46,10 +55,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           const user = {
             id: String(result.id),
-            name: `${result.firstName} ${result.lastName}`,
-            email: result.email,
-            image: result.image,
-            username: result.username,
+            name: "Help Study Abroad Admin",
+            email: PORTAL_DEMO_EMAIL,
+            image: "",
+            username: "admin",
             accessToken: result.accessToken,
           };
 

@@ -21,7 +21,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 export default function LoginPage() {
   const router = useRouter();
   const { status } = useSession();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +37,7 @@ export default function LoginPage() {
 
     try {
       const result = await signIn("credentials", {
-        username,
+        email,
         password,
         redirect: false,
       });
@@ -92,7 +92,7 @@ export default function LoginPage() {
 
             <Box component="form" onSubmit={handleSubmit}>
               <Stack spacing={2.2}>
-                <TextField label="Username" name="username" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} required fullWidth autoFocus />
+                <TextField label="Admin email" name="email" type="email" autoComplete="username" value={email} onChange={(event) => setEmail(event.target.value)} required fullWidth autoFocus />
                 <TextField label="Password" name="password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required fullWidth />
                 <Button type="submit" variant="contained" size="large" disabled={isSubmitting} sx={{ mt: 0.5, minHeight: 48 }}>
                   {isSubmitting ? <CircularProgress size={22} color="inherit" /> : "Sign in to workspace"}
@@ -102,10 +102,10 @@ export default function LoginPage() {
 
             <Divider sx={{ my: 3 }} />
             <Typography variant="caption" color="text.secondary" sx={{ display: "block", lineHeight: 1.7 }}>
-              Demo credentials: <strong>emilys</strong> / <strong>emilyspass</strong>. DummyJSON validates this demo account.
+              Demo credentials: <strong>admin@helpstudyabroad.in</strong> / <strong>StudyAbroad@123</strong>.
             </Typography>
             <Typography variant="caption" color="text.secondary" sx={{ display: "block", lineHeight: 1.7, mt: 1 }}>
-              This assessment uses pre-seeded demo accounts; account registration is not available in this demo.
+              The portal verifies this demo login, then authenticates through DummyJSON. Account registration is not available.
             </Typography>
             <Button component={NextLink} href="/" size="small" color="inherit" sx={{ mt: 2, px: 0 }}>Back to home</Button>
           </CardContent>

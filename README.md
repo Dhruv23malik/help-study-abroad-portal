@@ -49,14 +49,14 @@ Open <http://localhost:3000>.
 
 ## Demo login
 
-Use the DummyJSON demo account:
+Use the portal's Indian-style demo credentials:
 
 ```text
-Username: emilys
-Password: emilyspass
+Email: admin@helpstudyabroad.in
+Password: StudyAbroad@123
 ```
 
-DummyJSON's auth endpoint accepts a username and password, so this project uses its seeded test account rather than a custom email login.
+The portal checks this fixed demo pair, then calls DummyJSON's auth endpoint with its seeded test account (`emilys`). This keeps the requested email-style login while still using the API authentication required by the assessment. It is demo access, not a personal or production account.
 
 ## Project structure
 
