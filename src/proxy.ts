@@ -1,0 +1,19 @@
+import { auth } from "@/auth";
+
+export default auth((req) => {
+  const isLoggedIn = !!req.auth;
+  const isOnAdmin = req.nextUrl.pathname.startsWith("/dashboard");
+  const isOnLogin = req.nextUrl.pathname === "/login";
+
+  if (isOnAdmin && !isLoggedIn) {
+    return Response.redirect(new URL("/login", req.nextUrl));
+  }
+
+  if (isOnLogin && isLoggedIn) {
+    return Response.redirect(new URL("/dashboard", req.nextUrl));
+  }
+});
+
+export const config = {
+  matcher: ["/dashboard/:path*", "/login"],
+};

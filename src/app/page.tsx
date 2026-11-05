@@ -1,69 +1,77 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import NextLink from "next/link";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 
-export default function Home() {
+const features = [
+  {
+    title: "User directory",
+    description: "Search profiles and review contact, company, and location details.",
+    icon: <GroupsRoundedIcon />,
+  },
+  {
+    title: "Product catalog",
+    description: "Explore products with category filters, ratings, and full specifications.",
+    icon: <Inventory2RoundedIcon />,
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", bgcolor: "rgba(255,255,255,.88)" }}>
+        <Container maxWidth="lg" sx={{ minHeight: 76, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
+          <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
+            <Box sx={{ width: 40, height: 40, display: "grid", placeItems: "center", borderRadius: 2.5, bgcolor: "primary.main", color: "white", fontWeight: 800 }}>HS</Box>
+            <Typography sx={{ fontWeight: 750 }}>Help Study Abroad</Typography>
+          </Stack>
+          <NextLink href="/login" style={{ display: "inline-flex" }}>
+            <Button variant="outlined">Admin sign in</Button>
+          </NextLink>
+        </Container>
+      </Box>
+
+      <Container maxWidth="lg" sx={{ py: { xs: 7, md: 12 } }}>
+        <Box sx={{ maxWidth: 760, mb: { xs: 5, md: 7 } }}>
+          <Typography variant="overline" color="primary.main" sx={{ letterSpacing: ".15em", fontWeight: 750 }}>
+            ADMIN WORKSPACE
+          </Typography>
+          <Typography variant="h1" sx={{ mt: 1.5, mb: 2.5 }}>
+            A simpler way to manage your directory and catalog.
+          </Typography>
+          <Typography color="text.secondary" sx={{ maxWidth: 650, fontSize: { xs: 17, md: 19 }, lineHeight: 1.7 }}>
+            Sign in to search user profiles, browse products, and review details from one organized workspace.
+          </Typography>
+          <NextLink href="/login" style={{ display: "inline-flex", marginTop: 28 }}>
+            <Button size="large" variant="contained" endIcon={<ArrowForwardRoundedIcon />}>
+              Continue to admin sign in
+            </Button>
+          </NextLink>
+        </Box>
+
+        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, minmax(0, 1fr))" }, gap: 2.5 }}>
+          {features.map((feature) => (
+            <Card key={feature.title}>
+              <CardContent sx={{ p: { xs: 2.5, sm: 3.5 } }}>
+                <Box sx={{ width: 48, height: 48, display: "grid", placeItems: "center", borderRadius: 3, bgcolor: "primary.light", color: "primary.dark", mb: 2.5 }}>
+                  {feature.icon}
+                </Box>
+                <Typography variant="h3" sx={{ fontSize: 21, mb: 1 }}>{feature.title}</Typography>
+                <Typography color="text.secondary">{feature.description}</Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </Container>
+    </Box>
   );
 }
